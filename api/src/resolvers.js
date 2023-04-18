@@ -11,19 +11,21 @@ module.exports = {
     // create_user(_, __, {models}) {
     //   return models.User.create({})
     // },
-    pets(_, {type}, {models}) {
-      return models.Pet.findMany()
+    pets(_, {input}, {models}) {
+      return models.Pet.findMany((pet) => pet.type === input.type)
     },
-    pet(_, __, {models}) {
-      return models.Pet.findOne(() => true)
+    pet(_, {input}, {models}) {
+      return models.Pet.findOne((pet) => pet.type === input.type)
     },
     // createPet(_, __, {models}) {
     //   return models.Pet.create({})
     // }
   },
-  // Mutation: {
-  //
-  // },
+  Mutation: {
+    createPet(_, {input}, {models}) {
+      return models.Pet.create(input)
+    }
+  },
   // Pet: {
   //   img(pet) {
   //     return pet.type === 'DOG'
