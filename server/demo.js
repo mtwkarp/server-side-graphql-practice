@@ -14,11 +14,13 @@ const typeDefs = gql`
         email: String!
         avatar: String
         friends: [User]!
+        shoes: [Shoes]!
     }
     
     type Shoes {
         brand: ShoeType!
         size: Int!
+        user: User!
     }
 
     input ShoesInput {
@@ -45,14 +47,22 @@ const resolvers = {
     Query: {
         me() {
             return {
+                id: 1,
                 email: 'someemail@gmail.com',
                 avatar: 'http://yoda.png',
-                friends: []
+                friends: [],
+                shoes: []
             }
         },
         shoes(_, {input}) {
-            return [{brand: 'nike', size: 43},
-                {brand: 'adiddas', size: 42}].filter(({brand}) => brand === input.brand)
+            return [{brand: 'nike', size: 43, user: 1},
+                {brand: 'adiddas', size: 42, user: 1}]
+                // .filter(({brand}) => brand === input.brand)
+        }
+    },
+    Shoes: {
+        user() {
+
         }
     },
     Mutation: {
